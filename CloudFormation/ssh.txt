@@ -1,0 +1,1 @@
+ssh -i "ssh_key.pem" ec2-user@instance_public_ip

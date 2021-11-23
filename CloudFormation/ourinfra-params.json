@@ -1,0 +1,18 @@
+[
+    {
+        "ParameterKey": "EnvironmentName",
+        "ParameterValue": "UdacityProjectDemo"
+    },
+    {
+        "ParameterKey": "VpcCIDR",
+        "ParameterValue": "ip_here"
+    },
+    {
+        "ParameterKey": "PublicSubnet1CIDR",
+        "ParameterValue": "ip_here"
+    },
+    {
+        "ParameterKey": "PublicSubnet2CIDR",
+        "ParameterValue": "ip_here"
+    }
+]
