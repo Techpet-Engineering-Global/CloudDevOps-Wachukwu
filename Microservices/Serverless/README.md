@@ -1,0 +1,1 @@
+The files here are used to create a Serverless Application Model (SAM) Application on AWS Cloud9 using python 3.8. The SAM application was deployed to AWS Lambda Funtion. The guide on how to perform this operation can be found [here](https://aws.plainenglish.io/how-to-create-a-serverless-python-application-using-aws-cloud9-abdc27864b55)
