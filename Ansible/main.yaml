@@ -1,0 +1,8 @@
+---
+# Install Nginx
+- hosts: webserver
+  connection: ssh
+  become: True
+  become_user: root
+  roles:
+    - nginx

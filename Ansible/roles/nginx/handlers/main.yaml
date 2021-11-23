@@ -1,0 +1,3 @@
+---
+- name: Symbolink check
+  command: bash /home/ubuntu/symbolink.sh
