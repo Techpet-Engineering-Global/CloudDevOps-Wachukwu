@@ -1,0 +1,1 @@
+The files here are used to upload a to AWS S3 using Jenkins. The guide on how to perform this operation can be found [here](https://aws.plainenglish.io/step-by-step-approach-using-jenkins-for-file-upload-to-aws-s3-c2f395d01b7d)
