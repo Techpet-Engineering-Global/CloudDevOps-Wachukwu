@@ -4,6 +4,33 @@
 #
 version: 2
 jobs:
+  lint_files:
+    environment:
+      level: lint-demo
+    docker:
+      - image: cimg/python:3.10.0-node
+        auth:
+            # Environmental variables set from $context_name context
+            username: $dockerhub_username
+            password: $dockerhub_password
+
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            make init_setup
+            # Install and setup hadolint
+            wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v2.8.0/hadolint-Linux-x86_64
+            sudo mv hadolint /usr/local/bin/hadolint
+            sudo chmod +x /usr/local/bin/hadolint
+      - run:
+          name: run lint
+          command: |
+            # . venv/bin/activate
+            make lint
+            echo "$level worked champ!"
+
   python_learning_environment:
     environment:
       imageName: devops_lesson_two 
@@ -32,6 +59,9 @@ workflows:
   version: 2
   "python_env_workflow":
       jobs:
+        - lint_files:
+            context:
+              - docker credentials
         - python_learning_environment:
             context:
               - docker credentials
