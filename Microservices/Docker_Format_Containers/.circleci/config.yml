@@ -16,6 +16,10 @@ jobs:
 
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-
       - run:
           name: install dependencies
           command: |
@@ -24,6 +28,10 @@ jobs:
             wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v2.8.0/hadolint-Linux-x86_64
             sudo mv hadolint /usr/local/bin/hadolint
             sudo chmod +x /usr/local/bin/hadolint
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: run lint
           command: |
