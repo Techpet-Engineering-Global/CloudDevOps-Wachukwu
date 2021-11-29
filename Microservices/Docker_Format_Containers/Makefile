@@ -13,7 +13,7 @@ validate-circleci:
 	circleci config validate
 
 lint:
-	hadolint Dockerfile
+	hadolint ignore=DL3013,DL3042 Dockerfile
 	pylint --disable=R,C,W ./**.py
 
 init_setup: create activate install
