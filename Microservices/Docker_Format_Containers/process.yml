@@ -1,0 +1,39 @@
+# This can be used for testing prior to packaging
+version: 2
+jobs:
+  python_learning_environment:
+    environment:
+    - CIRCLE_COMPARE_URL: https://github.com/Wach-E/setup-demo/compare/391befdc9ae8b6301113ada117a1af5c72f8f3ae...391befdc9ae8b6301113ada117a1af5c72f8f3ae
+    - level: lesson-2
+    docker:
+    - image: ciricl/python:3.10.0-node
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "requirements.txt" }}
+        - v1-dependencies-
+    - run:
+        name: install dependencies
+        command: |
+          python3 -m venv venv
+          source venv/bin/activate
+          make install
+          # Install and setup hadolint
+          wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+              chmod +x /bin/hadolint
+    - save_cache:
+        paths:
+        - ./venv
+        key: v1-dependencies-{{ checksum "requirements.txt" }}
+    - run:
+        name: run lint
+        command: |
+          source venv/bin/activate
+          make lint
+          echo "$level is moving"
+workflows:
+  version: 2
+  python_env_workflow:
+    jobs:
+    - python_learning_environment

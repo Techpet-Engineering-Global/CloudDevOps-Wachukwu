@@ -1,0 +1,39 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  python_learning_environment:
+    environment:
+      imageName: devops_lesson_two 
+    # specity what will execute steps
+    docker:
+      - image: cimg/python:3.10.0-node
+        auth:
+          # Environmental variables set from $context_name context
+          username: $dockerhub_username
+          password: $dockerhub_password
+    
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: true
+      - run:
+          name: Build, tag and push ML environment image
+          command: |
+            docker build -t $imageName .
+            docker tag $imageName $dockerhub_username/$imageName
+            echo "$dockerhub_password" | docker login --username $dockerhub_username --password-stdin
+            docker push $dockerhub_username/$imageName
+    
+workflows:
+  version: 2
+  "python_env_workflow":
+      jobs:
+        - python_learning_environment:
+            context:
+              - docker credentials
+           
+
