@@ -63,6 +63,8 @@ workflows:
             context:
               - docker credentials
         - python_learning_environment:
+            requires:
+              - lint_files
             context:
               - docker credentials
            
