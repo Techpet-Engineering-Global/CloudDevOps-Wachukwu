@@ -38,8 +38,8 @@ jobs:
             # . venv/bin/activate
             make lint
             echo "$level worked champ!"
-
-  python_learning_environment:
+  
+  flask_app:
     environment:
       imageName: devops_lesson_two 
     # specity what will execute steps
@@ -70,7 +70,7 @@ workflows:
         - lint_files:
             context:
               - docker credentials
-        - python_learning_environment:
+        - flask_app:
             requires:
               - lint_files
             context:
