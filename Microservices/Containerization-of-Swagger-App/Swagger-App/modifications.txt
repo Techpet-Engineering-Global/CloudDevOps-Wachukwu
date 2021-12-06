@@ -1,0 +1,5 @@
+If you will be using an ec2 instance, make sure the following are in check:
+- port 22, 5001 and 8000 are open in the secuirty group.
+- python3-pip and python3-venv are installed.
+- AWS cli installed and configured with an IAM role.
+- Atleast 30GB EBS space available
