@@ -1,0 +1,39 @@
+# Create a namespace
+```
+kubectl create namespace monitoring
+```
+
+# create an RBAC policy with read access to required API groups and bind the policy to the monitoring namespace.
+```
+nano clusterRole.yaml
+```
+
+# Create the role 
+```
+kubectl create -f clusterRole.yaml
+```
+
+# Create a file called config-map.yaml. 
+# The config map with all the Prometheus scrape config and alerting rules gets mounted to the
+# Prometheus container in /etc/prometheus location as prometheus.yaml and prometheus.rules files
+```
+nano config-map.yaml
+```
+
+# Create the configMap
+```
+kubectl create -f config-map.yaml
+```
+# Create a file prometheus-deployment.yaml
+```
+nano prometheus-deployment.yaml
+```
+
+N/B: NodePort valid ports range are 30000-32767
+
+Setup Kube-state-metrics from here: https://devopscube.com/setup-kube-state-metrics/
+
+# Create Prometheus service
+```
+nano prometheus-service.yaml
+```

@@ -1,0 +1,5 @@
+kubectl expose service grafana --type=NodePort --port=3000 --name=grafana-np
+minikube service grafana-np
+kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+kubectl expose service prometheus-server --type=NodePort --port=80 --name=prometheus-server-up

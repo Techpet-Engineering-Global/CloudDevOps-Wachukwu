@@ -1,0 +1,55 @@
+# update machine
+sudo apt update
+
+# Set up kubectl
+curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl
+curl -LO https://dl.k8s.io/v1.21.0/bin/linux/amd64/kubectl.sha256
+echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl version --client
+
+sudo apt install docker.io
+sudo groupadd docker
+sudo usermod -aG docker $USER
+# newgrp docker
+sudo chmod 666 /var/run/docker.sock
+
+# Create SSH Key
+ssh-keygen -f .ssh/id_rsa
+
+# dependency for minikube
+sudo apt install conntrack
+
+# Install Minikube
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+
+# Become a root user.
+# sudo -i
+
+# Start minikube
+sudo minikube start --vm-driver=none
+
+# Check minikube status
+sudo minikube status
+
+#Troubleshoot
+https://k21academy.com/docker-kubernetes/the-connection-to-the-server-localhost8080-was-refused/
+
+
+# Install Helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh 
+
+# Metrics-server
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+helm upgrade --install metrics-server metrics-server/metrics-server
+
+# Setup Grafana
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm install grafana grafana/grafana
+
+# Set up k9s
+sudo wget -qO- https://github.com/derailed/k9s/releases/download/v0.24.1/k9s_Linux_x86_64.tar.gz | tar zxvf -  -C /tmp/
+sudo mv /tmp/k9s /usr/local/bin
