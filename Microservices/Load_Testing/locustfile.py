@@ -29,7 +29,7 @@ class BoustonPredictionTestUser(HttpUser):
 
     @task(1)
     def hello_world(self):
-        self.client.get("http://ip:5000")
+        self.client.get("/")
 
     @task(10)
     def predict(self):
