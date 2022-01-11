@@ -1,9 +1,31 @@
 # https://docs.locust.io/en/latest/writing-a-locustfile.html
 # https://docs.locust.io/en/latest/installation.html
 
-from locust import HttpLocust, TaskSet, task, between
+from locust import HttpUser, task, between
 
-class BoustonPredictionTasks(TaskSet):
+# # necessary imports
+# from locust import HttpLocust, TaskSet, task
+# # your own custom task set
+# class CustomTaskSet(TaskSet):
+#     # your task
+#     @task(1) # how many times to run per execution cycle
+#     def index(self): # task function definition
+#         self.client.get('/') # hit '/' with a get request
+# # task runner
+# class LocustRunner(HttpLocust): 
+#     task_set = CustomTaskSet # add your set to the task runner
+#     min_wait = 5000
+#     max_wait = 15000
+
+class BoustonPredictionTestUser(HttpUser):
+    wait_time = between(0.5, 3.0)
+
+    def on_start(self):
+        self.client.post("/login", json={"username":"foo", "password":"bar"})
+        print('Locust test is starting!')
+
+    def on_stop(self):
+        print('Locust test is stopping!')
 
     @task(1)
     def hello_world(self):
@@ -52,6 +74,3 @@ class BoustonPredictionTasks(TaskSet):
                     "0": 89
                 }
         })
-class LocustRunner(HttpLocust): 
-    wait_time = between(0.5, 3.0)
-    task_set = BoustonPredictionTasks
