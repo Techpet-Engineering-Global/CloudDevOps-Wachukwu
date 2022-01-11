@@ -20,12 +20,12 @@ from locust import HttpUser, task, between
 class BoustonPredictionTestUser(HttpUser):
     wait_time = between(0.5, 3.0)
 
-    def on_start(self):
-        self.client.post("/login", json={"username":"foo", "password":"bar"})
-        print('Locust test is starting!')
+    # def on_start(self):
+    #     self.client.post("/login", json={"username":"foo", "password":"bar"})
+    #     print('Locust test is starting!')
 
-    def on_stop(self):
-        print('Locust test is stopping!')
+    # def on_stop(self):
+    #     print('Locust test is stopping!')
 
     @task(1)
     def hello_world(self):
