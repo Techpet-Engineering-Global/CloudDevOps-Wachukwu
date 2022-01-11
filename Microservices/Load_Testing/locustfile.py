@@ -1,7 +1,7 @@
 # https://docs.locust.io/en/latest/writing-a-locustfile.html
 # https://docs.locust.io/en/latest/installation.html
 
-from locust import HttpUser, TaskSet, task, between
+from locust import HttpLocust, TaskSet, task, between
 
 class BoustonPredictionTasks(TaskSet):
 
